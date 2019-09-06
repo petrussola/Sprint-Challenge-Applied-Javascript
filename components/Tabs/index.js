@@ -36,8 +36,15 @@ axios.get('https://lambda-times-backend.herokuapp.com/topics')
         for (let i = 0; i < res.data.topics.length; i++) {
             const newTab = tabComponentBuilder(res.data.topics[i]);
             tabContainer.appendChild(newTab);
-            tabTopics.push(res.data.topics[i]);
+            console.log(newTab)
+            if (newTab.textContent === "node.js") {
+                tabTopics.push("node");
+            } else {
+                tabTopics.push(res.data.topics[i]);
+            }   
         }
+
+        console.log(tabTopics);
 
         // DISPLAY ALL CARDS ON LOAD
 
