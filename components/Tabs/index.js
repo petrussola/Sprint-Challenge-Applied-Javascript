@@ -39,6 +39,23 @@ axios.get('https://lambda-times-backend.herokuapp.com/topics')
             tabTopics.push(res.data.topics[i]);
         }
 
+        // DISPLAY ALL CARDS ON LOAD
+
+        axios.get('https://lambda-times-backend.herokuapp.com/articles')
+        .then( res => {
+            for (let i = 0; i< tabTopics.length; i++) {
+                const topic = tabTopics[i];
+                for (let i = 0; i<res.data.articles[topic].length; i++) {
+                    const allCard = articleBuilder(res.data.articles[topic][i]);
+                    cardContainer.appendChild(allCard);
+                }
+            }
+        })
+        .catch( error => {
+
+        });
+
+
         // SELECTED TAB FUNCTIONALITY
         const clickedTab = document.querySelectorAll('.tab');
         clickedTab.forEach(item => {
