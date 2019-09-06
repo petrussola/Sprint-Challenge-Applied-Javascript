@@ -63,7 +63,6 @@ axios.get('https://lambda-times-backend.herokuapp.com/topics')
                                 cardContainer.appendChild(newCard);
                             }
                         } else {
-                            console.log(tabTopics.length);
                             for (let i = 0; i< tabTopics.length; i++) {
                                 const topic = tabTopics[i];
                                 for (let i = 0; i<res.data.articles[topic].length; i++) {
