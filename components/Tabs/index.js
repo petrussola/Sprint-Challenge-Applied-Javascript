@@ -23,6 +23,7 @@ function tabAllBuilder() {
 }
 
 const tabContainer = document.querySelector('.topics');
+let selectedTab = "";
 
 axios.get('https://lambda-times-backend.herokuapp.com/topics')
     .then ( res => {
@@ -33,13 +34,14 @@ axios.get('https://lambda-times-backend.herokuapp.com/topics')
             tabContainer.appendChild(newTab);
         }
         const clickedTab = document.querySelectorAll('.tab');
-        console.log(clickedTab);
         clickedTab.forEach( item => {
             item.addEventListener('click', () => {
                 clickedTab.forEach( item => {
                     item.classList.remove('active-tab');
                 });
                 item.classList.add('active-tab');
+                selectedTab = item;
+                console.log(selectedTab.textContent);
             })
         })
     })
