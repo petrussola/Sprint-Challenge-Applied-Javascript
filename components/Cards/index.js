@@ -46,4 +46,4 @@ function articleBuilder() {
     return card;
 }
 
-console.log(articleBuilder());
+

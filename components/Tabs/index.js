@@ -15,10 +15,19 @@ function tabComponentBuilder(tabContent) {
     return tab;
 }
 
+function tabAllBuilder() {
+    const tab = document.createElement('div');
+    tab.classList.add('tab');
+    tab.textContent = 'All';
+    return tab;
+}
+
 const tabContainer = document.querySelector('.topics');
 
 axios.get('https://lambda-times-backend.herokuapp.com/topics')
     .then ( res => {
+        const tabAll = tabAllBuilder();
+        tabContainer.appendChild(tabAll);
         for (let i = 0; i<res.data.topics.length; i++) {
             const tab = tabComponentBuilder(res.data.topics[i]);
             tabContainer.appendChild(tab);
