@@ -30,13 +30,23 @@ Edit this document to include your answers after each question. Make sure to lea
 
 1. What is the DOM?
 
+DOM is the repesentation of your code typed in your files (html, css, etc.) as presented to the User by the browser. It is a tree like structure representing the content of your files.
+
 2. What is an event?
+
+An event is anything that the User visiting your website does on the browser (click, scroll, double click, etc.)
 
 3. What is an event listener?
 
+An event listener is a Java Script method that allows to listen to these events in order to initiate something on the website (an animation, effect, anything).
+
 4. Why would we convert a NodeList into an Array?
 
+A NodeList is an array-like type of data structure but doesn't have most of methods that Arrays enjoy. For instance, only has forEach. Converting a NodeList into an array allows us to be able to call Array methods into the NodeList data. You can convert a NodeList into Array by using the Array.from(NodeList) method.
+
 5. What is a component?
+
+A component is a function that takes data as arguments and uses it to build a DOM element.
 
 ### Git Set up
 
