@@ -23,27 +23,45 @@ function tabAllBuilder() {
 }
 
 const tabContainer = document.querySelector('.topics');
-let selectedTab = "";
+let selectedTab = "javascript";
+const cardContainer = document.querySelector('.cards-container');
 
 axios.get('https://lambda-times-backend.herokuapp.com/topics')
     .then ( res => {
+        
+        // BUILDS THE TABS
         const tabAll = tabAllBuilder();
         tabContainer.appendChild(tabAll);
         for (let i = 0; i<res.data.topics.length; i++) {
             const newTab = tabComponentBuilder(res.data.topics[i]);
             tabContainer.appendChild(newTab);
         }
+        
+        // SELECTED TAB FUNCTIONALITY
         const clickedTab = document.querySelectorAll('.tab');
         clickedTab.forEach( item => {
             item.addEventListener('click', () => {
+                cardContainer.innerHTML = "";
                 clickedTab.forEach( item => {
                     item.classList.remove('active-tab');
                 });
                 item.classList.add('active-tab');
-                selectedTab = item;
-                console.log(selectedTab.textContent);
+                selectedTab = item.textContent;
+                console.log(selectedTab);
+                // API CALL TO FETCH CARDS
+                axios.get('https://lambda-times-backend.herokuapp.com/articles')
+                .then( res => {
+                    for (let i = 0; i<res.data.articles[selectedTab].length; i++){
+                        const newCard = articleBuilder(res.data.articles[selectedTab][i]);
+                        cardContainer.appendChild(newCard);
+                    }
+                })
+                .catch( error => {
+        
+                });
             })
-        })
+        });
+
     })
     .catch ( error => {
 

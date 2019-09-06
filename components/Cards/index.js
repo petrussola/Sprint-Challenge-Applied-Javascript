@@ -46,7 +46,7 @@ function articleBuilder(data) {
     return card;
 }
 
-const cardContainer = document.querySelector('.cards-container');
+
 
 
 
