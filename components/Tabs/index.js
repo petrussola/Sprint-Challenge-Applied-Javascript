@@ -29,9 +29,16 @@ axios.get('https://lambda-times-backend.herokuapp.com/topics')
         const tabAll = tabAllBuilder();
         tabContainer.appendChild(tabAll);
         for (let i = 0; i<res.data.topics.length; i++) {
-            const tab = tabComponentBuilder(res.data.topics[i]);
-            tabContainer.appendChild(tab);
+            const newTab = tabComponentBuilder(res.data.topics[i]);
+            tabContainer.appendChild(newTab);
         }
+        const clickedTab = document.querySelectorAll('.tab');
+        console.log(clickedTab);
+        clickedTab.forEach( item => {
+            item.addEventListener('click', () => {
+                item.classList.add('active-tab');
+            })
+        })
     })
     .catch ( error => {
 
