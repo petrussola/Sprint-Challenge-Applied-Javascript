@@ -23,47 +23,64 @@ function tabAllBuilder() {
 }
 
 const tabContainer = document.querySelector('.topics');
-let selectedTab = "javascript";
+let selectedTab = "All";
 const cardContainer = document.querySelector('.cards-container');
+const tabTopics = [];
 
 axios.get('https://lambda-times-backend.herokuapp.com/topics')
-    .then ( res => {
-        
+    .then(res => {
+
         // BUILDS THE TABS
         const tabAll = tabAllBuilder();
         tabContainer.appendChild(tabAll);
-        for (let i = 0; i<res.data.topics.length; i++) {
+        for (let i = 0; i < res.data.topics.length; i++) {
             const newTab = tabComponentBuilder(res.data.topics[i]);
             tabContainer.appendChild(newTab);
+            tabTopics.push(res.data.topics[i]);
         }
-        
+
         // SELECTED TAB FUNCTIONALITY
         const clickedTab = document.querySelectorAll('.tab');
-        clickedTab.forEach( item => {
+        clickedTab.forEach(item => {
             item.addEventListener('click', () => {
                 cardContainer.innerHTML = "";
-                clickedTab.forEach( item => {
+                clickedTab.forEach(item => {
                     item.classList.remove('active-tab');
                 });
                 item.classList.add('active-tab');
                 selectedTab = item.textContent;
-                console.log(selectedTab);
+
                 // API CALL TO FETCH CARDS
                 axios.get('https://lambda-times-backend.herokuapp.com/articles')
-                .then( res => {
-                    for (let i = 0; i<res.data.articles[selectedTab].length; i++){
-                        const newCard = articleBuilder(res.data.articles[selectedTab][i]);
-                        cardContainer.appendChild(newCard);
-                    }
-                })
-                .catch( error => {
-        
-                });
+                    .then(res => {
+
+                        // WHAT TO DISPLAY DEPENDING ON SELECTED TAB
+
+                        if (selectedTab != "All") {
+
+                            for (let i = 0; i < res.data.articles[selectedTab].length; i++) {
+                                const newCard = articleBuilder(res.data.articles[selectedTab][i]);
+                                cardContainer.appendChild(newCard);
+                            }
+                        } else {
+                            console.log(tabTopics.length);
+                            for (let i = 0; i< tabTopics.length; i++) {
+                                const topic = tabTopics[i];
+                                for (let i = 0; i<res.data.articles[topic].length; i++) {
+                                    const allCard = articleBuilder(res.data.articles[topic][i]);
+                                    cardContainer.appendChild(allCard);
+                                }
+                            }
+                        }
+                    })
+                    .catch(error => {
+
+                    });
             })
         });
 
     })
-    .catch ( error => {
+    .catch(error => {
 
     });
 

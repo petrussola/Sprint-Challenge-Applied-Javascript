@@ -45,20 +45,3 @@ function articleBuilder(data) {
 
     return card;
 }
-
-
-
-
-
-// axios.get('https://lambda-times-backend.herokuapp.com/articles')
-// .then ( res => {
-//     // debugger
-//     const topics = Object.entries(res.data.articles);
-//     for (let i = 0; i<topics.length; i++){
-//         const newCard = articleBuilder(topics[i][1][0]);
-//         cardContainer.appendChild(newCard);
-//     }
-// })
-// .catch (error => {
-//     // debugger
-// });
